@@ -58,6 +58,16 @@ app = FastAPI(
     version     = "1.0.0",
 )
 
+
+@app.get("/")
+def root():
+    return {
+        "status": "ok",
+        "service": "INNOVEXA",
+        "message": "INNOVEXA backend is running"
+    }
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
