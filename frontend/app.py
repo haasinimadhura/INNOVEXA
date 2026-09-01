@@ -39,11 +39,14 @@ st.set_page_config(
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
+@import url('https://fonts.cdnfonts.com/css/anthropic-sans');
+
 /* ── Base ── */
+* { font-family: 'Anthropic Sans', 'Segoe UI', sans-serif !important; }
 html, body, [data-testid="stAppViewContainer"] {
     background-color: #0a0e1a;
     color: #c8d8f0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Anthropic Sans', 'Segoe UI', sans-serif;
 }
 [data-testid="stSidebar"] {
     background-color: #0d1226;
