@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 os.chdir(ROOT)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-API_URL      = os.getenv("INNOVEXA_API", "http://localhost:8000")
+API_URL      = os.getenv("INNOVEXA_API", "https://innovexa-y8g4.onrender.com")
 REPORTS_DIR  = ROOT / "data" / "reports"
 OLLAMA_URL   = os.getenv("OLLAMA_URL", "http://localhost:11434")
 
