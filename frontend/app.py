@@ -451,18 +451,15 @@ for col, (slug, label) in zip(nav_cols, NAV_ITEMS):
             st.rerun()
 st.markdown('<div class="top-nav-rule"></div>', unsafe_allow_html=True)
 
-# Health is fetched once per rerun (cached, see HEALTH_TTL) and reused by pages.
-health = api_health()
-st.session_state["_health"] = health
-backend_ok = health is not None
-llm_ok = health["components"]["local_llm"]["status"] == "online" if health else False
-rag_ok = health["components"]["rag"]["status"] in ("ready", "empty") if health else False
-
-
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE: DASHBOARD
 # ══════════════════════════════════════════════════════════════════════════════
 if "Dashboard" in page:
+    health = st.session_state.get("_health")
+    if health is None:
+        health = api_health()
+        st.session_state["_health"] = health
+
     st.markdown("<br>", unsafe_allow_html=True)
 
 
@@ -811,7 +808,7 @@ elif "Audit Logs" in page:
 elif "System Status" in page:
     st.markdown('<div class="section-title">⚙ SYSTEM STATUS</div>', unsafe_allow_html=True)
 
-    health   = api_health() or {}
+    health   = st.session_state.get("_health") or {}
     comps    = health.get("components", {})
     llm_info = comps.get("local_llm", {})
     rag_info = comps.get("rag",       {})
@@ -917,6 +914,7 @@ elif "Settings" in page:
     if st.button("🔄 Re-check AI components", key="set_recheck"):
         api_health.clear()
         get_kb_status.clear()
+        st.session_state["_health"] = api_health()
         st.rerun()
 
     # ── SYSTEM ────────────────────────────────────────────────────────────────
